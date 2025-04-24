@@ -1,0 +1,141 @@
+import {appSchema, tableSchema} from '@nozbe/watermelondb';
+
+export default appSchema({
+  version: 13,
+  tables: [
+    // "safe" table
+    tableSchema({
+      name: 'safes',
+      columns: [
+        //   {name: '__v', type: 'number', isOptional: true},
+        {name: 'accessory1', type: 'string', isOptional: true},
+        {name: 'accessory10', type: 'string', isOptional: true},
+        {name: 'accessory2', type: 'string', isOptional: true},
+        {name: 'accessory3', type: 'string', isOptional: true},
+        {name: 'accessory4', type: 'string', isOptional: true},
+        {name: 'accessory5', type: 'string', isOptional: true},
+        {name: 'accessory6', type: 'string', isOptional: true},
+        {name: 'accessory7', type: 'string', isOptional: true},
+        {name: 'accessory8', type: 'string', isOptional: true},
+        {name: 'accessory9', type: 'string', isOptional: true},
+        {name: 'articleNumber', type: 'string', isOptional: true},
+        {name: 'burglaryClassificationEn', type: 'string', isOptional: true},
+        {name: 'burglaryClassificationFr', type: 'string', isOptional: true},
+        {name: 'burglaryClassificationNl', type: 'string', isOptional: true},
+        {name: 'cataloguspaginaFR', type: 'string', isOptional: true},
+        {name: 'cataloguspaginaNL', type: 'string', isOptional: true},
+        {name: 'categoryEn', type: 'string', isOptional: true},
+        {name: 'categoryFr', type: 'string', isOptional: true},
+        {name: 'categoryNl', type: 'string', isOptional: true},
+        {name: 'chapterEn', type: 'string', isOptional: true},
+        {name: 'chapterFr', type: 'string', isOptional: true},
+        {name: 'chapterNl', type: 'string', isOptional: true},
+        {name: 'descriptionEn', type: 'string', isOptional: true},
+        {name: 'descriptionFr', type: 'string', isOptional: true},
+        {name: 'descriptionNl', type: 'string', isOptional: true},
+        {name: 'divisie', type: 'string', isOptional: true},
+        {name: 'drawers', type: 'string', isOptional: true},
+        {name: 'eanCode', type: 'string', isOptional: true},
+        {name: 'eurosafeEuroGradeEn', type: 'string', isOptional: true},
+        {name: 'eurosafeEuroGradeFr', type: 'string', isOptional: true},
+        {name: 'eurosafeEuroGradeNl', type: 'string', isOptional: true},
+        {
+          name: 'fireResistantClassificationEn',
+          type: 'string',
+          isOptional: true,
+        },
+        {
+          name: 'fireResistantClassificationExplanationEn',
+          type: 'string',
+          isOptional: true,
+        },
+        {
+          name: 'fireResistantClassificationExplanationFr',
+          type: 'string',
+          isOptional: true,
+        },
+        {
+          name: 'fireResistantClassificationExplanationNl',
+          type: 'string',
+          isOptional: true,
+        },
+        {
+          name: 'fireResistantClassificationFr',
+          type: 'string',
+          isOptional: true,
+        },
+        {
+          name: 'fireResistantClassificationNl',
+          type: 'string',
+          isOptional: true,
+        },
+        {name: 'gerelateerdeArtikelen', type: 'string', isOptional: true},
+        {name: 'handleiding1', type: 'string', isOptional: true},
+        {name: 'handleiding2', type: 'string', isOptional: true},
+        // WatermelonDB doesn’t support embedded arrays directly, so "imageArray" goes into its own table
+        {name: 'insideDimensionDepthInMm', type: 'string', isOptional: true},
+        {name: 'insideDimensionHightInMm', type: 'string', isOptional: true},
+        {name: 'insideDimensionWideInMm', type: 'string', isOptional: true},
+        {name: 'insuranceRatingFr', type: 'string', isOptional: true},
+        {name: 'insuranceRatingNl', type: 'string', isOptional: true},
+        {name: 'kluizenwijzer', type: 'string', isOptional: true},
+        {name: 'logo1Nl', type: 'string', isOptional: true},
+        {name: 'logo2Nl', type: 'string', isOptional: true},
+        {name: 'manual1', type: 'string', isOptional: true},
+        {name: 'manual2', type: 'string', isOptional: true},
+        {name: 'manuelDInstructions1', type: 'string', isOptional: true},
+        {name: 'manuelDInstructions2', type: 'string', isOptional: true},
+        {name: 'modelEn', type: 'string', isOptional: true},
+        {name: 'modelFr', type: 'string', isOptional: true},
+        {name: 'modelNl', type: 'string', isOptional: true},
+        {name: 'nameSeriesEn', type: 'string', isOptional: true},
+        {name: 'nameSeriesFr', type: 'string', isOptional: true},
+        {name: 'nameSeriesNl', type: 'string', isOptional: true},
+        {name: 'noBackgroundImage', type: 'string', isOptional: true},
+        {name: 'numberKeyHooks', type: 'string', isOptional: true},
+        {name: 'outsideDimensionDepthInMm', type: 'string', isOptional: true},
+        {name: 'outsideDimensionHightInMm', type: 'string', isOptional: true},
+        {name: 'outsideDimensionWideInMm', type: 'string', isOptional: true},
+        {name: 'picture1', type: 'string', isOptional: true},
+        {name: 'picture2', type: 'string', isOptional: true},
+        {name: 'picture3', type: 'string', isOptional: true},
+        {name: 'sessionId', type: 'string', isOptional: true},
+        {name: 'shelves', type: 'string', isOptional: true},
+        {name: 'shownOnUKWebsite', type: 'string', isOptional: true},
+        // In Realm we stored `timeStamp` as 'double?' but from your TypeScript, it looks like a Date.
+        // Adjust as needed. If it's a numeric timestamp, use 'number'; if you store ISO strings, use 'string'; etc.
+        {name: 'timeStamp', type: 'number', isOptional: true},
+        {name: 'ukInsuranceRating', type: 'string', isOptional: true},
+        {name: 'volumeInLiters', type: 'string', isOptional: true},
+        {name: 'weapons', type: 'string', isOptional: true},
+        {name: 'weightInKg', type: 'string', isOptional: true},
+      ],
+    }),
+
+    // "safeImageArray" table (replacing the embedded object)
+    tableSchema({
+      name: 'safe_image_arrays', // This name must match the one used in the @children decorator.
+      columns: [
+        {name: 'blob', type: 'string', isOptional: true},
+        {name: 'filename', type: 'string', isOptional: true},
+        {name: 'hash', type: 'string', isOptional: true},
+        // foreign key linking back to "safes"
+        {name: 'safe_id', type: 'string', isOptional: false},
+      ],
+    }),
+
+    // "stocks" table
+    tableSchema({
+      name: 'stocks',
+      columns: [
+        {name: 'version', type: 'number', isOptional: true},
+        {name: 'productId', type: 'string'},
+        {name: 'productDescription', type: 'string', isOptional: true},
+        {name: 'eanCode', type: 'string', isOptional: true},
+        {name: 'availableStock', type: 'string', isOptional: true},
+        {name: 'deleted', type: 'boolean', isOptional: true},
+        {name: 'updated_at', type: 'number', isOptional: false},
+      ],
+    }),
+  ],
+});
