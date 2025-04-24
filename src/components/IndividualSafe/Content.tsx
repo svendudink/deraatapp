@@ -1,107 +1,90 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native"
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { ChangingImage } from "./ChangingImage";
 import FireAndBurglaryLogo from "../FireAndBurglaryLogo";
 
-
-
-
-
-
 export const Content = (props) => {
+  // run once to fetch & observe images
+  useEffect(() => {
+    (async () => {
+      const images = await props.item.imageArray.fetch();
+      console.log(images, "images");
 
+      const imageArray$ = await props.imageArray.observe();
+      await imageArray$.subscribe((imageArray) => {
+        console.log(imageArray, "imageArray");
+      });
+    })();
+  }, []);
 
-  (async () => {
+  const findSeriesByName = (seriesArray, seriesName) =>
+    seriesArray.find((item) => item.nameSeriesEn === seriesName);
 
- console.log(props.item.imageArray, "prohhhe");
-            const images = await props.item.imageArray.fetch(); // images will be an array of SafeImageArray models
-            console.log(images, "images");
+  const logos = findSeriesByName(props.logoData, props.nameSeries) || {};
 
-            const imageArray$ = await props.imageArray.observe();
-            await imageArray$.subscribe((imageArray) => {
-                console.log(imageArray, "imageArray");
-            });
+  // ---- size logic -------------------------------------------------------
+  const fireGrades = logos.allfireresistanceclassifications?.filter(Boolean) || [];
+  const euroGrades = logos.alleurosafeeurogrades?.filter(Boolean) || [];
+  const totalGrades = fireGrades.length + euroGrades.length;
+  const logoSize = totalGrades >= 6 ? 40 : 60; 
+  // -----------------------------------------------------------------------
 
-   })();
-       
-
-
-  function findSeriesByName(seriesArray, seriesName) {
-  return seriesArray.find(item => item.nameSeriesEn === seriesName);
-}
-
-const logos = findSeriesByName(props.logoData,props.nameSeries)
-
-  // Not in use right now, but used for showing safe content
-  //const htmlContent = `<div style="color: black">${props.description}</div>`;
-  
-
-  
-return (
+  return (
     <View style={styles.product}>
       <View style={styles.content}>
         <ChangingImage {...props} />
+
         <View style={styles.details}>
-    <View style={styles.logoContainer}>
-  {logos?.allfireresistanceclassifications[0] && logos?.allfireresistanceclassifications.map((grade, index) => {
-    if (grade === "") {
-      console.log('Empty grade detected in allfireresistanceclassifications:', logos);
-    }
-    return (
-      <FireAndBurglaryLogo key={`fire_${index}`} image={"fire"} value={grade} totalLength={logos?.allfireresistanceclassifications.length} />
-    );
-  })}
-  
-  {/* Loop over the alleurosafeeurogrades array and render a logo for each item */}
-  
-  {logos?.alleurosafeeurogrades[0] && logos?.alleurosafeeurogrades.map((grade, index) => {
-    if (grade === "") {
-      console.log('Empty grade detected in alleurosafeeurogrades:', logos);
-    }
-    return (
-      <FireAndBurglaryLogo key={`burglary_${index}`} image={"burglary"} value={grade} />
-    );
-  })}
-</View>
+          <View style={styles.logoContainer}>
+            {fireGrades.map((grade, index) => (
+              <FireAndBurglaryLogo
+                key={`fire_${index}`}
+                image="fire"
+                value={grade}
+                totalLength={fireGrades.length}
+                size={logoSize}
+              />
+            ))}
+
+            {euroGrades.map((grade, index) => (
+              <FireAndBurglaryLogo
+                key={`burglary_${index}`}
+                image="burglary"
+                value={grade}
+                size={logoSize}
+              />
+            ))}
+          </View>
 
           <Text>Series:</Text>
-          <Text style={styles.nameSeries}>
-            {props.nameSeries}
-          </Text>
-          {/* Your content here */}
+          <Text style={styles.nameSeries}>{props.nameSeries}</Text>
         </View>
       </View>
-      <View style={styles.actions}></View>
+
+      <View style={styles.actions} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-   paddingTop: 20,
+  container: {
+    paddingTop: 20,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
   logoContainer: {
-    flexDirection: 'row', // This will align logos horizontally
-    alignItems: 'center', // This will center them vertically within the container
-    // Add other styling such as padding or margin as necessary
+    flexDirection: "row",
+    alignItems: "center",
   },
-
   product: {
     margin: 20,
     flex: 1,
   },
   content: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   base64Image: {
     width: "100%",
@@ -112,12 +95,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   details: {
-     flexShrink: 1,
+    flexShrink: 1,
     alignItems: "center",
     padding: 0,
-  
-   
- 
   },
   nameSeries: {
     fontSize: 20,
@@ -134,5 +114,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 });
-
-

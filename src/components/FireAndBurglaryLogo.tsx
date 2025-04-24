@@ -25,15 +25,14 @@ type FireAndBurglaryLogoProps = {
 
 
 
-const FireAndBurglaryLogo: React.FC<FireAndBurglaryLogoProps> = ({ image, value, totalLength }) => {
+const FireAndBurglaryLogo: React.FC<FireAndBurglaryLogoProps> = ({ image, value, totalLength, size =60 }) => {
   // Lookup the image path based on the 'image' prop
   const shield = imagePaths[image];
 
-const smallIcon = totalLength >= 5 ? true : false
   
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {width: size, height: size}]}>
       <ImageBackground 
         source={shield} 
         style={styles.image}

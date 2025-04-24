@@ -40,8 +40,8 @@ export const RenderHeader = ({ section, isActive, inputValues, setInputValues })
                 transition="backgroundColor"
             >
                 <View style={styles.renderTitle}>
-                    <Text style={styles.textColor}>
-                        <FontAwesome6 name={section.icon} iconStyle="solid" size={20} /><Text style={styles.headerText}>{`   ${t(section.title)}`}</Text>
+                    <Text style={hasValuesForSection() ? styles.textColorActive : styles.textColor}>
+                        <FontAwesome6 name={section.icon} color={hasValuesForSection() ? styles.textColorActive.color : styles.textColor.color} iconStyle="solid" size={20} /><Text style={styles.headerText}>{`   ${t(section.title)}`}</Text>
                     </Text>
                     {hasValuesForSection() && (
                         <TouchableOpacity onPress={clearValuesForSection}>

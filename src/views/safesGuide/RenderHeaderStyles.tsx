@@ -39,7 +39,8 @@ export const styles = StyleSheet.create({
         
       },
 
-    textColor: { color: "#2271A9" },
+  textColor: { color: "#2271A9" },
+    textColorActive: { color: "black" },
       // the individual texts for the search by dimensions weight and other
       headerText: {
         textAlign: "left",
