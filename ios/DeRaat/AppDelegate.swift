@@ -5,26 +5,69 @@ import ReactAppDependencyProvider
 
 @main
 class AppDelegate: RCTAppDelegate {
-  override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    self.moduleName = "DeRaat"
-    self.dependencyProvider = RCTAppDependencyProvider()
 
-    // You can add your custom initial props in the dictionary below.
-    // They will be passed down to the ViewController used by React Native.
-    self.initialProps = [:]
+  // MARK: – Copy pre-populated SQLite files into Documents (runs once)
+  private func copyPrepopulatedDBs() {
+    let fm = FileManager.default
+    let dbFiles = ["safes.db", "safes.db-wal", "safes.db-shm"]
+
+    // ← Use Documents rather than Application Support
+    let docsDir = try! fm.url(
+      for: .documentDirectory,
+      in: .userDomainMask,
+      appropriateFor: nil,
+      create: true
+    )
+
+    for file in dbFiles {
+      let dest = docsDir.appendingPathComponent(file)
+
+      // skip if a non-empty file already exists
+      if let attrs = try? fm.attributesOfItem(atPath: dest.path),
+         let size  = attrs[.size] as? NSNumber,
+         size.intValue > 0 {
+        continue
+      }
+
+      // look for the file at the bundle root or under www/
+      let srcURL = Bundle.main.url(forResource: file, withExtension: nil)
+                ?? Bundle.main.url(forResource: "www/\(file)", withExtension: nil)
+
+      if let src = srcURL {
+        do {
+          try fm.copyItem(at: src, to: dest)
+          NSLog("DB_COPY iOS ► \(file) → \(dest.path)")
+        } catch {
+          NSLog("DB_COPY ERROR: \(error.localizedDescription)")
+        }
+      } else {
+        NSLog("DB_COPY iOS ▶︎ \(file) not found in bundle")
+      }
+    }
+  }
+
+  // ────────────────────────────────────────────────────────────────────
+
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+  ) -> Bool {
+    copyPrepopulatedDBs()                           // ← call *before* RN init
+
+    self.moduleName         = "DeRaat"
+    self.dependencyProvider = RCTAppDependencyProvider()
+    self.initialProps       = [:]
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
-  override func sourceURL(for bridge: RCTBridge) -> URL? {
-    self.bundleURL()
-  }
+  override func sourceURL(for bridge: RCTBridge) -> URL? { bundleURL() }
 
   override func bundleURL() -> URL? {
-#if DEBUG
+  #if DEBUG
     RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
-#else
+  #else
     Bundle.main.url(forResource: "main", withExtension: "jsbundle")
-#endif
+  #endif
   }
 }

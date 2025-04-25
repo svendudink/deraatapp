@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "node_modules/@react-native-vector-icons/ant-design/Fonts/AntDesign.ttf",
+      "sha1": "37d79a06c762b7298d714063802ad45e65e3987a"
+    },
+    {
+      "path": "node_modules/@react-native-vector-icons/ionicons/Fonts/Ionicons.ttf",
+      "sha1": "ca7112c93894c475d4c2046d7de86005582084b3"
+    },
+    {
+      "path": "node_modules/@react-native-vector-icons/fontawesome6/Fonts/FontAwesome6_Brands.ttf",
+      "sha1": "2b1ae3e772246bb83c004c497cf4fe63f2d492b4"
+    },
+    {
+      "path": "node_modules/@react-native-vector-icons/fontawesome6/Fonts/FontAwesome6_Regular.ttf",
+      "sha1": "5610aeb166fbea54a48dc49853b76c7cf56921c1"
+    },
+    {
+      "path": "node_modules/@react-native-vector-icons/fontawesome6/Fonts/FontAwesome6_Solid.ttf",
+      "sha1": "1837d43170865d40a1a6d319c4f5680996ca201b"
+    },
+    {
+      "path": "assets/www/safes.db",
+      "sha1": "88c7259fc23e4ed01db5c8139d706faa8439f099"
+    },
+    {
+      "path": "assets/www/safes.db-shm",
+      "sha1": "087c1af3de0bab64309582359725f3c851e909bf"
+    },
+    {
+      "path": "assets/www/safes.db-wal",
+      "sha1": "e9be6973fc9ac1de7808922e2810b5b471da2764"
+    }
+  ]
+}
