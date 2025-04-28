@@ -10,13 +10,10 @@ export const LanguagePicker = () => {
 
       const {
     language,
-    setLanguage,
+    changeLanguage,
   } = useContext(FilteredSafesContext);
 
-  const changeLanguage = (newLanguage) => {
-    setLanguage(newLanguage);
-    i18n.changeLanguage(newLanguage);
-  };
+
 
     return (<View>
          <Text style={styles.label}>{t("settings.language")}</Text>
