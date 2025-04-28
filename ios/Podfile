@@ -20,15 +20,16 @@ end
 target 'DeRaat' do
   config = use_native_modules!
 
-  # ⬇️  👇  THIS is the only line you need to add/replace  👇  ⬇️
- pod 'simdjson',
-    path: '../node_modules/@nozbe/simdjson',
-    modular_headers: true
-  # (remove the previous simdjson line that pointed to the official repo)
+  # Replace the previous simdjson line:
+  pod 'simdjson',
+      path: '../node_modules/@nozbe/simdjson',
+      modular_headers: true
 
   use_react_native!(
-    :path     => config[:reactNativePath],
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :path               => config[:reactNativePath],
+    :app_path           => "#{Pod::Config.instance.installation_root}/..",
+    :hermes_enabled     => true,    # 🔥 Build Hermes from source (includes dSYM)
+    :fabric_enabled     => false
   )
 
   post_install do |installer|
@@ -38,5 +39,14 @@ target 'DeRaat' do
       :mac_catalyst_enabled => false
       # :ccache_enabled => true  # uncomment if you use ccache
     )
+
+    # Ensure all build configs embed dSYMs
+    installer.pods_project.targets.each do |t|
+      if t.name == 'hermes-engine' || t.name == 'React-hermes'
+        t.build_configurations.each do |config|
+          config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf-with-dsym'
+        end
+      end
+    end
   end
 end
