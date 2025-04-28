@@ -161,7 +161,6 @@ export async function syncStocks(database) {
 
       pullChanges: async ({lastPulledAt}) => {
         console.log('[PullStocks] lastPulledAt:', lastPulledAt);
-        lastPulledAt = false;
         const sinceValue = lastPulledAt
           ? new Date(lastPulledAt).toISOString()
           : '1970-01-01T00:00:00.000Z';

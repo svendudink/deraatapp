@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useTranslation } from "react-i18next";
 import FilteredSafesContext from "../../providers/SafeContext";
-import Icon from "@react-native-vector-icons/fontawesome6";
+import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 import Popup from "../../components/Popup";
 
 
@@ -36,7 +36,8 @@ export const OtherProducts_6 = ({ foundObject, articleNumber, setActiveRowArticl
       <View style={styles.inStockContainer}>
         <Text style={styles.tableHeaderText}>{"In stock"}</Text>
         <Pressable onPress={() => setModalVisible(true)}>
-    <Icon name="question-circle" style={styles.questionIcon} />
+ 
+    <FontAwesome6 name="block-question" iconStyle="solid" style={styles.questionIcon} />
   </Pressable>
       </View>
     </View>
@@ -58,9 +59,9 @@ const styles = StyleSheet.create({
     otherProductsTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 5,
   },
-  tableHeader: {
+   tableHeader: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#49A046",
@@ -71,20 +72,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     flex: 1,
-  
     textAlign: "center",
-    marginVertical: 10,
+    marginVertical: 10,        // keep this for model/weight/capacity
   },
   inStockContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
     flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",  // <-- center both children vertically
   },
   questionIcon: {
     fontSize: 16,
-    color: '#000',
-    marginLeft: 4,
-    marginTop: -24, 
-  },
+    color: "#000",
+    marginTop: 4,              // small gap between text and icon
+  }
 
 })
